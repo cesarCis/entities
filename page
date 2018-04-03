@@ -1,61 +1,61 @@
-@Validated
-public class MigrationProcessStatusResponse {
-	
-	@JsonProperty("migrationProcesses")
-	@Valid
-	private List<MigrationProcess> migrationProcesses = null;
+public enum MigrationProcessStatusEnum {
+	SUBMITTED("SUBMITTED"),
 
-	/**
-	 * Get migrationProcesses
-	 * 
-	 * @return migrationProcesses
-	 **/
+	IN_PROGRESS("IN_PROGRESS"),
 
-	@Valid
-	public List<MigrationProcess> getMigrationProcesses() {
-		return migrationProcesses;
+	REJECTED("REJECTED"),
+
+	FINISHED("FINISHED");
+
+	private String value;
+
+	MigrationProcessStatusEnum(String value) {
+		this.value = value;
 	}
 
-	public void setMigrationProcesses(List<MigrationProcess> migrationProcesses) {
-		this.migrationProcesses = migrationProcesses;
+	@Override
+	@JsonValue
+	public String toString() {
+		return String.valueOf(value);
 	}
 
+	@JsonCreator
+	public static MigrationProcessStatusEnum fromValue(String text) {
+		for (MigrationProcessStatusEnum b : MigrationProcessStatusEnum.values()) {
+			if (String.valueOf(b.value).equals(text)) {
+				return b;
+			}
+		}
+		return null;
+	}
 }
+---------------------------------------------------------------------
+public enum MigrationProcessTypeEnum {
+	ADDITION("ADDITION"),
 
---------------------------------------------------------------------------------------------
+	MODIFICATION("MODIFICATION"),
 
-@Validated
-public class MigrationProcess {
-	
-	@JsonProperty("migrationProcessId")
-	private Integer migrationProcessId = null;
+	REPORT("REPORT");
 
-	@JsonProperty("migrationProcessType")
-	private MigrationProcessTypeEnum migrationProcessType = null;
+	private String value;
 
-	@JsonProperty("migrationProcessStatus")
-	private MigrationProcessStatusEnum migrationProcessStatus = null;
-
-	public Integer getMigrationProcessId() {
-		return migrationProcessId;
+	MigrationProcessTypeEnum(String value) {
+		this.value = value;
 	}
 
-	public void setMigrationProcessId(Integer migrationProcessId) {
-		this.migrationProcessId = migrationProcessId;
+	@Override
+	@JsonValue
+	public String toString() {
+		return String.valueOf(value);
 	}
 
-	public MigrationProcessTypeEnum getMigrationProcessType() {
-		return migrationProcessType;
+	@JsonCreator
+	public static MigrationProcessTypeEnum fromValue(String text) {
+		for (MigrationProcessTypeEnum b : MigrationProcessTypeEnum.values()) {
+			if (String.valueOf(b.value).equals(text)) {
+				return b;
+			}
+		}
+		return null;
 	}
-
-	public void setMigrationProcessType(MigrationProcessTypeEnum migrationProcessType) {
-		this.migrationProcessType = migrationProcessType;
-	}
-
-	public MigrationProcessStatusEnum getMigrationProcessStatus() {
-		return migrationProcessStatus;
-	}
-
-	public void setMigrationProcessStatus(MigrationProcessStatusEnum migrationProcessStatus) {
-		this.migrationProcessStatus = migrationProcessStatus;
-	}
+}
